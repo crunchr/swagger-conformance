@@ -14,8 +14,6 @@ SPHINXBUILD = sphinx-build
 SPHINXBUILDTARGET = html
 SPHINXAPIDOC = sphinx-apidoc
 SPHINXAPIDOCOPTS = -e -f -T
-# Pandoc documentation commands.
-PANDOC = pandoc
 
 # Python commands.
 PYTHONCMD = python3
@@ -62,11 +60,11 @@ docs_api:
 	rm -rf "$(SPHINXAPIOUT)"
 	$(SPHINXAPIDOC) $(SPHINXAPIDOCOPTS) -o "$(SPHINXAPIOUT)" "$(PKGSOURCEDIR)"
 
-docs_md_convert:
-	$(PANDOC) readme.md -o $(DOCSSOURCEDIR)/readme.rst
-	$(PANDOC) examples/readme.md -o $(DOCSSOURCEDIR)/examples.rst
+docs_copy:
+	cp readme.rst $(DOCSSOURCEDIR)/readme.rst
+	cp examples/readme.md $(DOCSSOURCEDIR)/examples.rst
 
-docs_sphinx: docs_clean docs_api docs_md_convert
+docs_sphinx: docs_clean docs_api docs_copy
 	@$(SPHINXBUILD) -M "$(SPHINXBUILDTARGET)" "$(DOCSSOURCEDIR)" \
 		"$(DOCSBUILDDIR)" $(SPHINXBUILDOPTS)
 

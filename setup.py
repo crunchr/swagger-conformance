@@ -15,13 +15,12 @@ To push a new release, assuming running on Windows:
 """
 import os.path as osp
 from setuptools import find_packages, setup
-import pypandoc
 
 VERSION_FILE = osp.relpath(osp.join(osp.dirname(osp.realpath(__file__)),
                                     'VERSION.txt'))
 VERSION = open(VERSION_FILE).read().strip()
 URL = 'https://github.com/olipratt/swagger-conformance'
-LONG_DESC = pypandoc.convert('readme.md', 'rst').replace('\r\n', '\n')
+LONG_DESC = open('readme.rst').read().replace('\r\n', '\n')
 
 
 setup(
